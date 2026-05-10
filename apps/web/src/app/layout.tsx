@@ -1,4 +1,4 @@
-// filepath: apps/web/src/app/layout.tsx
+// filepath: apps/web/src/app/layout.tsx 
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
