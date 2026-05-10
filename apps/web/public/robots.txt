@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://linuxquest.vercel.app/sitemap.xml
