@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper to check if the user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper to check if the user owns the document
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // User Progress collection
+    match /userProgress/{userId} {
+      // Users can only read and write their own progress
+      allow read, write: if isOwner(userId);
+      
+      // Guest users can't write to the database (they use localStorage)
+      // If you want to support guest syncing, you'd need a different strategy
+    }
+    
+    // Default: deny everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
