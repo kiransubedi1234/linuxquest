@@ -2,6 +2,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { getCurriculumUnit } from "@/data/curriculum";
+import type { QuizQuestion } from "@/types";
 import { clsx } from "clsx";
 import toast from "react-hot-toast";
 
@@ -46,7 +47,7 @@ export default function MockTestPage() {
     newAnswers[currentIdx] = selectedIdx;
     setUserAnswers(newAnswers);
 
-    if (selectedIdx === currentQuestion.correctIndex) {
+    if (currentQuestion && selectedIdx === currentQuestion.correctIndex) {
       setScore((s) => s + 1);
     }
 
@@ -86,10 +87,10 @@ export default function MockTestPage() {
 
             <div className="mb-8">
               <h2 className="text-lg font-medium text-white mb-6">
-                {currentQuestion.question}
+                {currentQuestion?.question}
               </h2>
               <div className="space-y-3">
-                {currentQuestion.options.map((option, idx) => (
+                {currentQuestion?.options.map((option, idx) => (
                   <button
                     key={idx}
                     onClick={() => setSelectedIdx(idx)}

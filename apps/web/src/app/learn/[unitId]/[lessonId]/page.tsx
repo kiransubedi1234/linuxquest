@@ -206,9 +206,11 @@ export default function LessonPage() {
               <div className="prose-terminal animate-fade-in">
                 <ReactMarkdown
                   components={{
-                    code: ({ inline, children, className, ...props }) => {
+                    code: ({ node, children, className, ...props }) => {
                       const content = String(children).replace(/\n$/, "");
-                      if (inline) {
+                      const isInline = !className;
+                      
+                      if (isInline) {
                         return <CommandOverview command={content} />;
                       }
                       return (

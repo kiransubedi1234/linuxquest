@@ -42,7 +42,7 @@ export function PlacementQuizModal({
     newAnswers[currentIdx] = selectedIdx;
     setUserAnswers(newAnswers);
 
-    if (selectedIdx === currentQuestion.correctIndex) {
+    if (currentQuestion && selectedIdx === currentQuestion.correctIndex) {
       setScore((s) => s + 1);
     }
 
@@ -93,10 +93,10 @@ export function PlacementQuizModal({
             {/* Question */}
             <div className="mb-8">
               <h3 className="mb-4 text-lg font-medium text-white">
-                {currentQuestion.question}
+                {currentQuestion?.question}
               </h3>
               <div className="space-y-3">
-                {currentQuestion.options.map((option, idx) => (
+                {currentQuestion?.options.map((option, idx) => (
                   <button
                     key={idx}
                     onClick={() => setSelectedIdx(idx)}

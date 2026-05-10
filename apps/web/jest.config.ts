@@ -1,6 +1,4 @@
-import type { JestConfigWithTsJest } from "ts-jest";
-
-const config: JestConfigWithTsJest = {
+const config = {
   preset: "ts-jest",
   testEnvironment: "jsdom",
   rootDir: ".",

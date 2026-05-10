@@ -112,7 +112,8 @@ export function useSync(userId: string | null, isGuest: boolean) {
         const unlocked = new Set(prev.unlockedUnits);
         // Unlock this unit and all previous units
         for (let i = 0; i <= unitIndex; i++) {
-          unlocked.add(CURRICULUM[i].id);
+          const u = CURRICULUM[i];
+          if (u) unlocked.add(u.id);
         }
 
         return {
@@ -136,24 +137,24 @@ export function useSync(userId: string | null, isGuest: boolean) {
         
         // Mark this and all previous units as unlocked
         for (let i = 0; i <= unitIndex; i++) {
-          unlocked.add(CURRICULUM[i].id);
+          const u = CURRICULUM[i];
+          if (u) unlocked.add(u.id);
         }
         
         // Mark this unit as completed
         completed[unitId] = true;
         
         // Unlock the NEXT unit if it exists
-        if (unitIndex < CURRICULUM.length - 1) {
-          unlocked.add(CURRICULUM[unitIndex + 1].id);
+        const nextUnit = CURRICULUM[unitIndex + 1];
+        if (nextUnit) {
+          unlocked.add(nextUnit.id);
         }
 
         return {
           ...prev,
           unlockedUnits: Array.from(unlocked),
           completedUnits: completed,
-          currentUnitId: unitIndex < CURRICULUM.length - 1 
-            ? CURRICULUM[unitIndex + 1].id 
-            : unitId,
+          currentUnitId: nextUnit ? nextUnit.id : unitId,
         };
       });
     },
